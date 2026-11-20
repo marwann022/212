@@ -2,7 +2,6 @@
 
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { useState } from "react";
 
 const sectors = [
@@ -10,84 +9,85 @@ const sectors = [
     name: "Automation & Robotics",
     tag: "ENGINEERING TO ORDER",
     detail: "Custom production-line automation, warehouse robotics, and construction delivery systems with project-based authorization and technical support.",
+    image: "/images/sectors/automation-robotics.jpg",
   },
   {
     name: "Solar Energy & Smart Grid",
     tag: "ENERGY INFRASTRUCTURE",
     detail: "Solar trackers, BIPV, power-generating glass, off-grid systems, MV/LV equipment, solar trees, and EV charging solutions.",
+    image: "/images/sectors/solar-smart-grid.jpg",
   },
   {
     name: "Prefabricated Steel Units",
     tag: "RAPID CONSTRUCTION",
     detail: "Modular housing, worker camps, site offices, and industrial facilities for major projects across KSA, UAE, and Egypt.",
+    image: "/images/sectors/prefabricated-steel.jpg",
   },
   {
     name: "Smart Home Devices",
     tag: "CONNECTED LIVING",
     detail: "Advanced smart-home and building-automation systems designed around energy management, security, and seamless integration.",
+    image: "/images/sectors/smart-home.jpg",
   },
   {
     name: "Floating Houses & Marine Architecture",
     tag: "WATERFRONT HOSPITALITY",
     detail: "Floating villas, autonomous eco-lodges, houseboats, and marine hospitality structures for the region’s emerging waterfront destinations.",
+    image: "/images/sectors/floating-houses.jpg",
   },
 ];
 
 export function Sectors() {
   const [active, setActive] = useState(0);
-  const sector = sectors[active];
 
   return (
     <section id="sectors" className="sectors" aria-labelledby="sectors-title">
-      <div className="sectors-heading">
+      <div className="sectors-heading editorial-intro" data-section="04">
         <p className="section-index"><span>04</span> FRANCHISE OPPORTUNITIES</p>
         <h2 id="sectors-title">Five sectors.<br /><em>One platform.</em></h2>
       </div>
 
-      <div className="sector-explorer">
-        <article
-          id="sector-detail"
-          className="sector-visual"
-          role="tabpanel"
-          key={sector.name}
-          style={{ "--sector-index": active } as CSSProperties}
-        >
-          <Image
-            src="/images/sectors/sector-panorama.png"
-            alt="A visual panorama of the five 212°F opportunity sectors"
-            fill
-            sizes="(max-width: 900px) 100vw, 70vw"
-            className="sector-panorama"
-          />
-          <div className="sector-visual-shade" aria-hidden="true" />
-          <div className="sector-counter" aria-hidden="true">
-            <span>0{active + 1}</span><i /><span>05</span>
-          </div>
-          <div className="sector-copy">
-            <p>{sector.tag}</p>
-            <h3>{sector.name}</h3>
-            <div>
-              <p>{sector.detail}</p>
-              <a href="#contact" aria-label={`Discuss ${sector.name}`}><ArrowUpRight size={25} /></a>
-            </div>
-          </div>
-        </article>
-
-        <div className="sector-tabs" role="tablist" aria-label="Franchise sectors">
-          {sectors.map((item, index) => (
+      <div className="sector-film" aria-label="Five franchise sectors">
+        {sectors.map((sector, index) => (
+          <article
+            className={`sector-panel${active === index ? " is-active" : ""}`}
+            key={sector.name}
+            onPointerEnter={(event) => {
+              if (event.pointerType === "mouse" && window.matchMedia("(width > 800px) and (hover: hover)").matches) {
+                setActive(index);
+              }
+            }}
+          >
+            <Image
+              src={sector.image}
+              alt={`${sector.name} opportunity sector`}
+              fill
+              sizes="(max-width: 800px) 100vw, (max-width: 1700px) 46vw, 780px"
+              className="sector-panel-image"
+            />
+            <div className="sector-panel-shade" aria-hidden="true" />
             <button
-              key={item.name}
               type="button"
-              role="tab"
-              aria-selected={active === index}
-              aria-controls="sector-detail"
-              className={active === index ? "is-active" : ""}
+              className="sector-panel-toggle"
+              aria-label={sector.name}
+              aria-expanded={active === index}
+              aria-controls={`sector-detail-${index}`}
               onClick={() => setActive(index)}
             >
-              <span>0{index + 1}</span><strong>{item.name}</strong><i aria-hidden="true" />
+              <span className="sector-panel-top"><span>0{index + 1}</span><i /><span>05</span></span>
+              <span className="sector-panel-collapsed-title">{sector.name}</span>
+              <span className="sector-panel-plus" aria-hidden="true">{active === index ? "−" : "+"}</span>
             </button>
-          ))}
-        </div>
+            <div className="sector-panel-copy" id={`sector-detail-${index}`} inert={active !== index}>
+              <p>{sector.tag}</p>
+              <h3>{sector.name}</h3>
+              <div className="sector-panel-detail">
+                <p>{sector.detail}</p>
+                <a href="#contact" aria-label={`Discuss ${sector.name}`}><ArrowUpRight size={24} /></a>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

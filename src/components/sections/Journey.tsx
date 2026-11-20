@@ -3,7 +3,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -18,50 +18,83 @@ const phases = [
 
 export function Journey() {
   const root = useRef<HTMLElement>(null);
+  const [activePhase, setActivePhase] = useState(0);
 
   useGSAP(
     () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const media = gsap.matchMedia();
 
-      const steps = gsap.utils.toArray<HTMLElement>(".journey-step");
-      gsap.fromTo(
-        ".journey-progress",
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: { trigger: ".journey-steps", start: "top 60%", end: "bottom 60%", scrub: true },
-        },
-      );
+      media.add("(min-width: 1001px) and (prefers-reduced-motion: no-preference)", () => {
+        const steps = gsap.utils.toArray<HTMLElement>(".journey-step");
+        gsap.set(steps, {
+          autoAlpha: (index: number) => index === 0 ? 1 : 0,
+          y: (index: number) => index === 0 ? 0 : 48,
+        });
 
-      steps.forEach((step) => {
-        ScrollTrigger.create({
-          trigger: step,
-          start: "top 60%",
-          end: "bottom 42%",
-          toggleClass: { targets: step, className: "is-active" },
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top 84px",
+            end: "+=360%",
+            pin: true,
+            scrub: 0.65,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline.to(".journey-progress", { scaleX: 1, ease: "none", duration: 6 }, 0);
+        steps.slice(1).forEach((step, index) => {
+          const previous = steps[index];
+          const at = index + 0.72;
+          timeline
+            .to(previous, { autoAlpha: 0, y: -46, duration: 0.28 }, at)
+            .to(step, { autoAlpha: 1, y: 0, duration: 0.38 }, at + 0.12);
         });
       });
+
+      return () => media.revert();
     },
     { scope: root },
   );
 
   return (
     <section ref={root} id="process" className="journey" aria-labelledby="journey-title">
-      <aside className="journey-intro">
+      <aside className="journey-intro" data-section="05">
         <p className="section-index"><span>05</span> OUR METHODOLOGY</p>
-        <h2 id="journey-title">A clear route<br />from interest<br />to impact.</h2>
+        <h2 id="journey-title">A clear route<br />from interest<br />to <em>impact.</em></h2>
         <p>Six phases. Defined deliverables. No vague promises.</p>
       </aside>
 
-      <div className="journey-steps">
-        <div className="journey-line" aria-hidden="true"><i className="journey-progress" /></div>
-        {phases.map(([number, title, description]) => (
-          <article className="journey-step" key={number}>
-            <span>{number}</span>
-            <div><h3>{title}</h3><p>{description}</p></div>
-          </article>
-        ))}
+      <div className="journey-stage">
+        <div className="journey-mobile-nav" aria-label="Methodology phases">
+          {phases.map(([number, title], index) => (
+            <button
+              type="button"
+              key={number}
+              className={activePhase === index ? "is-active" : ""}
+              aria-pressed={activePhase === index}
+              onClick={() => setActivePhase(index)}
+            >
+              <span>{number}</span>{title}
+            </button>
+          ))}
+        </div>
+        <div className="journey-steps">
+          {phases.map(([number, title, description], index) => (
+            <article className={`journey-step${activePhase === index ? " is-mobile-active" : ""}`} key={number}>
+              <span>{number}</span>
+              <div><h3>{title}</h3><p>{description}</p></div>
+            </article>
+          ))}
+        </div>
+
+        <div className="journey-rail" aria-hidden="true">
+          <i className="journey-progress" />
+          {phases.map(([number, title]) => (
+            <span key={number}><b>{number}</b>{title}</span>
+          ))}
+        </div>
       </div>
     </section>
   );

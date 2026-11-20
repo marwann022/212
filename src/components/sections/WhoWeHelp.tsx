@@ -32,30 +32,32 @@ export function WhoWeHelp() {
 
   useGSAP(
     () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      gsap.from(".partner-row", {
-        xPercent: -7,
-        opacity: 0,
-        duration: 0.85,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: root.current, start: "top 65%" },
+      const media = gsap.matchMedia();
+      media.add("(min-width: 1001px) and (prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".partner-row", {
+          y: 16,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".partner-list", start: "top 85%", once: true },
+        });
       });
+      return () => media.revert();
     },
     { scope: root },
   );
 
   return (
     <section ref={root} className="who-we-help" aria-labelledby="partners-title">
-      <header>
+      <header className="editorial-intro" data-section="03">
         <p className="section-index"><span>03</span> WHO WE HELP</p>
-        <h2 id="partners-title">Built for people<br />ready to move.</h2>
+        <h2 id="partners-title">Built for people<br /><em>ready to move.</em></h2>
         <p className="who-we-help-intro">A regional platform for the people building what comes next—not another directory of listings.</p>
       </header>
 
       <div className="partner-visual">
         <Image
-          src="/images/hero/founder-daughter.png"
+          src="/images/hero/Relations.jpg"
           alt="212°F leadership in a working session"
           fill
           sizes="(max-width: 900px) 100vw, 48vw"

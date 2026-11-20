@@ -23,8 +23,9 @@ export function ScrollToTop() {
     <button
       className={`scroll-top ${visible ? "is-visible" : ""}`}
       type="button"
+      tabIndex={visible ? 0 : -1}
       aria-label="Scroll back to top"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onClick={() => window.scrollTo({ top: 0 })}
     >
       <svg viewBox="0 0 52 52" aria-hidden="true">
         <circle cx="26" cy="26" r="24" />
