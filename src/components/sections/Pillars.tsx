@@ -65,6 +65,9 @@ export function Pillars() {
         {pillars.map((pillar) => (
           <article key={pillar.number} className={`pillar-panel pillar-panel--${pillar.accent}`}>
             <div className="pillar-number pillar-reveal">{pillar.number}</div>
+            <div className={`pillar-art pillar-art--${pillar.number}`} aria-hidden="true">
+              <i /><i /><i /><b />
+            </div>
             <div className="pillar-main">
               <p className="pillar-eyebrow pillar-reveal">{pillar.eyebrow}</p>
               <h3 className="pillar-reveal">{pillar.title}</h3>

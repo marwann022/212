@@ -66,6 +66,7 @@ export function Hero() {
             alt="212°F leadership reviewing a project together"
             fill
             priority
+            loading="eager"
             sizes="(max-width: 900px) 100vw, 48vw"
             className="portrait-image"
           />

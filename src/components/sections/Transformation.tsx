@@ -20,8 +20,8 @@ export function Transformation() {
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: root.current,
-            start: "top top",
-            end: "+=150%",
+            start: "top 84px",
+            end: "+=115%",
             pin: true,
             scrub: 0.7,
           },

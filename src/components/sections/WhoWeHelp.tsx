@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -49,7 +50,19 @@ export function WhoWeHelp() {
       <header>
         <p className="section-index"><span>03</span> WHO WE HELP</p>
         <h2 id="partners-title">Built for people<br />ready to move.</h2>
+        <p className="who-we-help-intro">A regional platform for the people building what comes next—not another directory of listings.</p>
       </header>
+
+      <div className="partner-visual">
+        <Image
+          src="/images/hero/founder-daughter.png"
+          alt="212°F leadership in a working session"
+          fill
+          sizes="(max-width: 900px) 100vw, 48vw"
+          className="partner-image"
+        />
+        <span>RELATIONSHIPS<br />BEFORE TRANSACTIONS</span>
+      </div>
 
       <div className="partner-list">
         {partners.map((partner) => (

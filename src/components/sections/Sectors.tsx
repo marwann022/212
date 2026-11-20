@@ -1,6 +1,8 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import type { CSSProperties } from "react";
 import { useState } from "react";
 
 const sectors = [
@@ -43,6 +45,34 @@ export function Sectors() {
       </div>
 
       <div className="sector-explorer">
+        <article
+          id="sector-detail"
+          className="sector-visual"
+          role="tabpanel"
+          key={sector.name}
+          style={{ "--sector-index": active } as CSSProperties}
+        >
+          <Image
+            src="/images/sectors/sector-panorama.png"
+            alt="A visual panorama of the five 212°F opportunity sectors"
+            fill
+            sizes="(max-width: 900px) 100vw, 70vw"
+            className="sector-panorama"
+          />
+          <div className="sector-visual-shade" aria-hidden="true" />
+          <div className="sector-counter" aria-hidden="true">
+            <span>0{active + 1}</span><i /><span>05</span>
+          </div>
+          <div className="sector-copy">
+            <p>{sector.tag}</p>
+            <h3>{sector.name}</h3>
+            <div>
+              <p>{sector.detail}</p>
+              <a href="#contact" aria-label={`Discuss ${sector.name}`}><ArrowUpRight size={25} /></a>
+            </div>
+          </div>
+        </article>
+
         <div className="sector-tabs" role="tablist" aria-label="Franchise sectors">
           {sectors.map((item, index) => (
             <button
@@ -54,20 +84,10 @@ export function Sectors() {
               className={active === index ? "is-active" : ""}
               onClick={() => setActive(index)}
             >
-              <span>0{index + 1}</span>{item.name}
+              <span>0{index + 1}</span><strong>{item.name}</strong><i aria-hidden="true" />
             </button>
           ))}
         </div>
-
-        <article id="sector-detail" className="sector-detail" role="tabpanel" key={sector.name}>
-          <div className="sector-orbit" aria-hidden="true"><i /><b>212°</b></div>
-          <p>{sector.tag}</p>
-          <h3>{sector.name}</h3>
-          <div className="sector-detail-bottom">
-            <p>{sector.detail}</p>
-            <a href="#contact" aria-label={`Discuss ${sector.name}`}><ArrowUpRight size={25} /></a>
-          </div>
-        </article>
       </div>
     </section>
   );
