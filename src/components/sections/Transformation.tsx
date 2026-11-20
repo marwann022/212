@@ -93,16 +93,21 @@ export function Transformation() {
           </div>
 
           <div className="market-visual" aria-hidden="true">
-            <svg viewBox="0 0 560 430" role="presentation">
-              <path className="market-route" d="M25 347 C121 327 120 198 224 212 C324 226 313 77 430 97 C489 107 498 52 540 27" />
-              <circle className="market-node" cx="25" cy="347" r="8" />
-              <circle className="market-node" cx="224" cy="212" r="8" />
-              <circle className="market-node" cx="430" cy="97" r="8" />
-              <circle className="market-node market-node--hot" cx="540" cy="27" r="13" />
+            <svg viewBox="0 0 560 330" role="presentation">
+              <path className="market-route" d="M38 282 C122 280 151 195 246 190 C342 185 379 81 510 58" />
             </svg>
-            <span className="market-label market-label--egypt">EGYPT</span>
-            <span className="market-label market-label--gulf">GULF</span>
-            <span className="market-label market-label--world">BEYOND</span>
+            <div className="market-stage market-stage--egypt">
+              <i className="market-node" />
+              <span><small>01 · ORIGIN</small><strong>EGYPT</strong></span>
+            </div>
+            <div className="market-stage market-stage--gulf">
+              <i className="market-node" />
+              <span><small>02 · REGIONAL SCALE</small><strong>GULF</strong></span>
+            </div>
+            <div className="market-stage market-stage--beyond">
+              <i className="market-node market-node--hot" />
+              <span><small>03 · GLOBAL REACH</small><strong>BEYOND</strong></span>
+            </div>
           </div>
         </div>
       </div>

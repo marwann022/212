@@ -114,12 +114,16 @@ main { padding-top: var(--nav-height); }
 .market-visual { align-self: end; height: min(29vh, 300px); justify-self: stretch; position: relative; }
 .market-visual svg { height: 100%; overflow: visible; width: 100%; }
 .market-route { fill: none; stroke: rgba(255,255,255,.48); stroke-dasharray: 620; stroke-width: 1.5; }
-.market-node { fill: var(--paper); }
-.market-node--hot { fill: var(--red); }
-.market-label { font-size: 9px; font-weight: 800; letter-spacing: .2em; position: absolute; }
-.market-label--egypt { bottom: 14%; left: 0; }
-.market-label--gulf { left: 44%; top: 42%; }
-.market-label--world { right: 0; top: 0; }
+.market-stage { align-items: center; display: flex; gap: 13px; position: absolute; }
+.market-stage i { background: var(--paper); border: 3px solid var(--navy-deep); border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,.66); display: block; flex: 0 0 auto; height: 15px; width: 15px; }
+.market-stage span { display: flex; flex-direction: column; gap: 6px; white-space: nowrap; }
+.market-stage small { color: rgba(255,255,255,.48); font-size: 7px; font-weight: 800; letter-spacing: .18em; }
+.market-stage strong { color: white; font-size: 10px; font-weight: 800; letter-spacing: .22em; }
+.market-stage--egypt { bottom: 5.5%; left: 4.2%; }
+.market-stage--gulf { left: 42%; top: 39%; }
+.market-stage--beyond { flex-direction: row-reverse; right: 2.5%; top: 7%; }
+.market-stage--beyond i { background: var(--red); box-shadow: 0 0 0 8px rgba(208,37,42,.13); height: 21px; width: 21px; }
+.market-stage--beyond span { text-align: right; }
 
 .pillars { background: var(--paper); padding: 130px clamp(24px, 5.5vw, 92px); }
 .pillars-intro { display: grid; gap: 30px; grid-template-columns: .75fr 1.7fr .8fr; margin: 0 auto 86px; max-width: 1400px; }
