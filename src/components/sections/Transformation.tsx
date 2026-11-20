@@ -33,22 +33,21 @@ export function Transformation() {
             value: 212,
             ease: "none",
             onUpdate: () => {
-              if (degree.current) degree.current.textContent = state.value.toFixed(1);
+              if (degree.current) {
+                degree.current.textContent = state.value > 211.96 ? "212" : state.value.toFixed(1);
+              }
             },
           }, 0)
-          .to(".transformation-before", { opacity: 0.18, xPercent: -7, ease: "power2.inOut" }, 0.18)
-          .fromTo(
-            ".transformation-after",
-            { clipPath: "inset(0 100% 0 0)" },
-            { clipPath: "inset(0 0% 0 0)", ease: "power2.inOut" },
-            0.25,
-          )
-          .from(".market-route", { strokeDashoffset: 620, ease: "none" }, 0.3)
-          .from(".market-node", { scale: 0, transformOrigin: "center", stagger: 0.08, ease: "back.out(2)" }, 0.45);
+          .to(".degree-211", { opacity: 0.22, xPercent: -4, ease: "power2.inOut" }, 0.14)
+          .fromTo(".degree-plus", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, ease: "back.out(2)" }, 0.2)
+          .fromTo(".degree-212", { opacity: 0.12, xPercent: 5 }, { opacity: 1, xPercent: 0, ease: "power2.inOut" }, 0.28)
+          .from(".transformation-copy > *", { y: 35, opacity: 0, stagger: 0.1, ease: "power3.out" }, 0.34)
+          .from(".market-route", { strokeDashoffset: 620, ease: "none" }, 0.38)
+          .from(".market-node", { scale: 0, transformOrigin: "center", stagger: 0.08, ease: "back.out(2)" }, 0.5);
       });
 
       media.add("(max-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.from(".transformation-after, .transformation-copy", {
+        gsap.from(".degree-comparison, .transformation-copy, .market-visual", {
           opacity: 0,
           y: 42,
           duration: 0.85,
@@ -75,16 +74,21 @@ export function Transformation() {
       <div className="transformation-stage">
         <p className="section-index"><span>01</span> THE EXTRA DEGREE</p>
 
-        <div className="transformation-before" aria-hidden="true">
-          <span>211°</span>
-          <p>Hot enough to wait.</p>
-        </div>
+        <div className="transformation-layout">
+          <div className="degree-comparison" aria-label="At 211 degrees water is hot. At 212 degrees it boils.">
+            <div className="degree-state degree-211">
+              <span>211</span><sup>°F</sup><small>HOT</small>
+            </div>
+            <div className="degree-plus" aria-hidden="true">+1°</div>
+            <div className="degree-state degree-212">
+              <span>212</span><sup>°F</sup><small>TRANSFORMATION</small>
+            </div>
+          </div>
 
-        <div className="transformation-after">
           <div className="transformation-copy">
-            <h2 id="transformation-title">One degree.<br />A world of<br /><em>difference.</em></h2>
+            <h2 id="transformation-title">One extra degree.<br /><em>Everything changes.</em></h2>
             <p>
-              At 211°F, water is hot. At 212°F, it moves the world. We bring that extra degree of strategy, access, and execution to every market we enter.
+              At 211°F, water is hot. At 212°F, it boils — creating steam, energy, and movement. That single degree is our standard: the extra strategy, access, and execution that turns potential into market momentum.
             </p>
           </div>
 

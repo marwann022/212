@@ -2,6 +2,11 @@ import { Hero } from "@/components/sections/Hero";
 import { Navbar } from "@/components/layout/Navbar";
 import { Transformation } from "@/components/sections/Transformation";
 import { Pillars } from "@/components/sections/Pillars";
+import { WhoWeHelp } from "@/components/sections/WhoWeHelp";
+import { Sectors } from "@/components/sections/Sectors";
+import { Journey } from "@/components/sections/Journey";
+import { ContactFooter } from "@/components/sections/ContactFooter";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 export default function Home() {
   return (
@@ -10,7 +15,11 @@ export default function Home() {
       <Hero />
       <Transformation />
       <Pillars />
-      <section id="contact" className="sr-only" aria-label="Contact" />
+      <WhoWeHelp />
+      <Sectors />
+      <Journey />
+      <ContactFooter />
+      <ScrollToTop />
     </main>
   );
 }

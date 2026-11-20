@@ -5,13 +5,22 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#story", label: "Our story" },
-  { href: "#opportunities", label: "Opportunities" },
-  { href: "#contact", label: "Contact" },
+  { href: "#story", label: "Story" },
+  { href: "#opportunities", label: "What we build" },
+  { href: "#sectors", label: "Sectors" },
+  { href: "#process", label: "How we work" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateHeader = () => setScrolled(window.scrollY > 32);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -21,7 +30,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <a href="#top" className="brand-mark" aria-label="212°F Franchise Egypt home">
         <Image src="/images/brand/212-logo.png" alt="212°F Franchise Egypt" width={2048} height={1443} priority />
       </a>
